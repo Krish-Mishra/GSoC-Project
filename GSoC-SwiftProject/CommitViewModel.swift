@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftData
 
 @Observable
 class CommitViewModel {
@@ -15,13 +16,16 @@ class CommitViewModel {
     
     private let service = GitHubService()
     
-    func generateAISummary() async {
+    func generateAISummary(modelContext: ModelContext) async {
         guard !commits.isEmpty else { return }
+        
         isAnalyzing = true
         
         do {
             let summary = try await aiService.summarize(commits: commits)
             self.aiSummary = summary
+            let newHistoryEntry = SavedSummary(repoName: "GSoC Project", summaryContent: summary)
+                    modelContext.insert(newHistoryEntry)
         } catch {
             self.errorMessage = "AI failed: \(error.localizedDescription)"
         }
@@ -30,6 +34,9 @@ class CommitViewModel {
     }
     
     func loadCommits(for repo: String) async {
+        self.aiSummary = nil
+        self.errorMessage = nil
+        
         isLoading = true
         errorMessage = nil
         

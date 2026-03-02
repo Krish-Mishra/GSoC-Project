@@ -1,0 +1,24 @@
+//
+//  SavedSummary.swift
+//  GSoC-SwiftProject
+//
+//  Created by Krish Mishra on 02/03/26.
+//
+
+import Foundation
+import SwiftData
+
+@Model
+class SavedSummary {
+    var id: UUID
+    var date: Date
+    var repoName: String
+    var summaryContent: String
+    
+    init(repoName: String, summaryContent: String) {
+        self.id = UUID()
+        self.date = Date()
+        self.repoName = repoName
+        self.summaryContent = summaryContent
+    }
+}
