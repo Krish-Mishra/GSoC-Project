@@ -76,6 +76,9 @@ struct ContentView: View {
                         }
                     }
                 }
+                .refreshable {
+                    await viewModel.loadCommits(for: "Krish-Mishra/GSoC-Project")
+                }
                 .navigationTitle("CommitSage")
                 .task {
                     await viewModel.loadCommits(for: "Krish-Mishra/GSoC-Project")
@@ -94,10 +97,12 @@ struct ContentView: View {
                 Label("Analyze", systemImage: "magnifyingglass")
             }
             
-            HistoryView()
-                .tabItem {
-                    Label("History", systemImage: "clock.arrow.circlepath")
-                }
+            NavigationStack {
+                HistoryView()
+            }
+            .tabItem {
+                Label("History", systemImage: "clock.arrow.circlepath")
+            }
         }
     }
 }

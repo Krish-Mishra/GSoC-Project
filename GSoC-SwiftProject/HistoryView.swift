@@ -16,17 +16,21 @@ struct HistoryView: View {
         NavigationStack {
             List {
                 ForEach(histories) { history in
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text(history.repoName)
-                            .font(.headline)
-                        Text(history.date.formatted(date: .abbreviated, time: .shortened))
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                        Text(history.summaryContent)
-                            .font(.subheadline)
-                            .lineLimit(3)
+                    NavigationLink {
+                        HistoryDetailsView(history: history)
+                    } label: {
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text(history.repoName)
+                                .font(.headline)
+                            Text(history.date.formatted(date: .abbreviated, time: .shortened))
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                            Text(history.summaryContent)
+                                .font(.subheadline)
+                                .lineLimit(3)
+                        }
+                        .padding(.vertical, 4)
                     }
-                    .padding(.vertical, 4)
                 }
                 .onDelete(perform: deleteHistory)
             }
