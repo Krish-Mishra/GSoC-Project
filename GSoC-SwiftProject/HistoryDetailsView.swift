@@ -48,7 +48,7 @@ struct HistoryDetailsView: View {
         }
         
         let cleanBody = attributedBody.string.replacingOccurrences(of: "**", with: "")
-        let finalBody = NSMutableAttributedString(string: cleanBody, attributes: [.font: bodyFont, .paragraphStyle: paragraphStyle])
+        _ = NSMutableAttributedString(string: cleanBody, attributes: [.font: bodyFont, .paragraphStyle: paragraphStyle])
         
         fullContent.append(attributedBody)
         
